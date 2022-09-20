@@ -1,0 +1,1 @@
+print(max([len(item) for item in input().split('0')]))

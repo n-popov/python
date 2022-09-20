@@ -1,0 +1,1 @@
+print(sum([int(item) for item in input().split() if item.isdigit() or item.startswith('-') and item[1:].isdigit()]))
