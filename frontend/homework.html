@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="homework.css">
+
+</head>
+<body>
+<h2>Контрольные вопросы:</h2>
+<ol>
+    <li>(8 б.) Что такое стек и куча в контексте модели памяти C++? Какие переменные хранятся на стеке / в куче?
+    <li>(8 б.) Каким образом связаны встроенные указатели и массивы?
+    <li>(8 б.) Почему низкоуровневая работа с памятью небезопасна?
+    <li>(8 б.) Какие конструкции языка C++ аналогичны следующим концепциям Python: list, list.append(), list.clear(),
+        for item in some_list, str?
+    <li>(8 б.) Для чего нужен оператор delete? В чём разница между операторами delete и delete[]?
+</ol>
+<h2>Упражнения:</h2>
+<ol>
+
+    <li><p>(25 б.) Тензор второго ранга — это линейный оператор, переводящий векторное пространство в себя. Если в
+        пространстве задан базис, то тензор может быть представлен в виде квадратной матрицы. Введите с клавиатуры
+        вектор и матричное представление тензора в некотором базисе и воздействуйте тензором на вектор. Выведите
+        результат. Реализуйте решение для вектора размерности 3 или 4 по вашему выбору. (Соответственно, представление
+        тензора — это матрица размеров 3х3 или 4х4).
+d
+    <li><p> (25 б.) Реализуйте функцию split() — аналог str.split() в Python. Она должна принимать строку и возвращать
+        вектор строк, разбитых по разделителю.
+        Подсказка: воспользуйтесь методами строки
+        <a href="https://en.cppreference.com/w/cpp/string/basic_string/find">find()</a> и
+        <a href="https://en.cppreference.com/w/cpp/string/basic_string/substr">substr()</a>.
+        Посмотрите примеры в документации!
+
+    <li><p> (25 б.) Реализуйте алгоритм сортировки вставками массива чисел. Потренируйтесь использовать контейнер
+        std::vector без итераторов и функцию обмена std::swap. Псевдокод алгоритма можете посмотреть здесь.
+
+    <li><p> (25 б.) Реализуйте алгоритм бинарного поиска в отсортированном массиве чисел. Достаточно установить факт
+        наличия или отсутствия искомого числа в массиве. Потренируйтесь использовать контейнер std::vector без
+        итераторов и оптимизируйте цикл поиска. Псевдокод алгоритма можете посмотреть здесь.
+
+</ol>
+
+<table class="table table-light  table-striped text-center">
+    <thead>
+        <tr>
+            <th>Студент</th>
+            <th>Оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Попов</td>
+            <td id="nv-mark">уд (3)</td>
+        </tr>
+        <tr>
+            <td>Казусев</td>
+            <td id="sn-mark">отл (3)</td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-success" onclick="change('sn-mark')" >Выставить оценку Степану Николаевичу</button>
+<button class="btn btn-primary" onclick="changeFromInput('nv-mark', 'nv-input')">Выставить оценку Никите Вадимовичу</button>
+<input id="nv-input" type="text"><label for="nv-input"> Новая оценка Никиты Вадимовича</label>
+</body>
+</html>
+
+<script>
+    console.log("Hello from HTML file");
+    function change(studentID) {
+        const mark = prompt('Выставите оценку:')
+        const element = document.getElementById(studentID);
+        element.innerText = mark;
+    }
+
+    function changeFromInput(studentID, inputID) {
+        const markCell = document.getElementById(studentID)
+        const newMark = document.getElementById(inputID).value;
+        console.log(newMark);
+        markCell.innerText = newMark;
+        markCell.classList.add('text-success');
+    }
+</script>

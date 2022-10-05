@@ -1,0 +1,16 @@
+h2 {
+        text-align: center;
+    }
+
+    .cursive {
+        font-style: italic;
+    }
+
+    #unique-paragraph {
+        font-size: x-large;
+        font-family: Courier, monospace;
+    }
+
+    body {
+        background-image: url("cat.jpg");
+    }

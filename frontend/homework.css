@@ -1,0 +1,8 @@
+body {
+    max-width: 50em;
+    margin: auto auto 5em;
+}
+
+li {
+    text-align: justify;
+}
