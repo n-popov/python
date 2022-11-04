@@ -25,37 +25,48 @@
         <th>ID</th>
         <th>Name</th>
         <th>Mark</th>
+        <th>Update</th>
         <th>Delete</th>
     </tr>
     </thead>
     <tbody>
     {% for student in students %}
         <tr>
-            <td id="stid{{ student.0 }}">{{ student.0 }}</td>
-            <td>{{ student.1 }}</td>
-            <td>{{ student.2 }}</td>
+            <td>{{ student.0 }}</td>
+            <td><input id="name{{ student.0 }}" type="text" value="{{ student.1 }}"></td>
+            <td><input id="mark{{ student.0 }}" type="text" value="{{ student.2 }}"></td>
+            <td>
+                <button class="btn btn-warning" onclick="update({{ student.0 }})">U</button>
+            </td>
             <td>
                 <button class="btn btn-danger" onclick="del({{ student.0 }})">X</button>
             </td>
         </tr>
     {% endfor %}
+    <tr>
+        <td>+</td>
+        <td><input type="text" id="inputName" placeholder="Name"></td>
+        <td><input type="text" id="inputMark" placeholder="Mark"></td>
+        <td colspan="2"><button class="btn btn-success" onclick="add()">Add</button></td>
+    </tr>
     </tbody>
 </table>
-
-<h2>Add Student</h2>
-<div>
-    <input type="text" id="inputName"><label for="inputName">Name</label>
-    <input type="text" id="inputMark"><label for="inputMark">Mark</label>
-    <button class="btn btn-success" onclick="add()">Add</button>
-</div>
 </body>
 </html>
 
 <script>
+    function getCsrfToken() {
+        return document.cookie.split('; ').find((row) => row.startsWith('csrftoken='))?.split('=')[1];
+    }
+
     async function add() {
         const studentName = document.getElementById("inputName").value;
         const studentMark = document.getElementById("inputMark").value;
+        const token = getCsrfToken();
         await fetch('/students/add_student/', {
+            headers: {
+                'X-CSRFToken': token
+            },
             method: 'POST',
             body: JSON.stringify({name: studentName, mark: studentMark}),
         });
@@ -64,8 +75,29 @@
 
     async function del(studentId) {
         if (confirm('Do you want to delete student?')) {
-            await fetch(`/students/delete_student/${studentId}/`);
+            await fetch(`/students/delete_student/${studentId}/`,{
+                method: 'POST',
+                headers: {'X-CSRFToken': getCsrfToken()}
+                }
+            );
             window.location.reload();
         }
+    }
+
+    async function update(studentId) {
+        const studentName = document.getElementById(`name${studentId}`).value;
+        const studentMark = document.getElementById(`mark${studentId}`).value;
+        await fetch(`/students/update_student/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCsrfToken()
+            },
+            body: JSON.stringify({
+                'id': studentId,
+                'name': studentName,
+                'mark': studentMark,
+            })
+        });
+        window.location.reload();
     }
 </script>
